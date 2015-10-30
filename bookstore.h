@@ -211,6 +211,11 @@ bookstore_t* bookstore_load(const char* filename) {
 }
 
 void bookstore_add_book(bookstore_t* store, book_t* book) {
+    if (book_find(store, book->isbn) != NULL) {
+        printf("Book with the same ISBN already exists in the bookstore!\n");
+        return;
+    }
+
     store->books = realloc(store->books, sizeof(book_t*) * (store->num_books + 1));
     if (store->books == NULL) exit(errno);
     store->books[store->num_books] = book;
