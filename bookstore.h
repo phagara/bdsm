@@ -249,7 +249,7 @@ book_t* books_by_author(const bookstore_t* store, const char* author, const book
             return store->books[i];
         }
 
-        if (proceed == false && store->books[i] == last)
+        if (!proceed && store->books[i] == last)
             proceed = true;
     }
 
@@ -264,7 +264,7 @@ book_t* books_by_genre(const bookstore_t* store, const char* genre, const book_t
             return store->books[i];
         }
 
-        if (proceed == false && store->books[i] == last)
+        if (!proceed && store->books[i] == last)
             proceed = true;
     }
 
