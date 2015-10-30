@@ -1,0 +1,27 @@
+bookadd book0 title0 author1 genre1 10 0 100.00
+bookadd book1 title1 author1 genre2 11 1 100.10
+bookadd book2 title2 author1 genre3 12 2 100.20
+bookadd book3 title3 author1 genre2 13 13 100.30
+bookadd book4 title4 author2 genre3 14 4 100.40
+bookadd book5 title5 author2 genre4 15 5 100.50
+bookadd book6 title6 author2 genre4 16 16 100.60
+bookadd book7 title7 author3 genre1 17 7 100.70
+bookadd book8 title8 author4 genre5 18 8 100.80
+bookadd book9 title9 author5 genre1 19 19 100.90
+ls
+info book0
+save bookstore.dat
+reset
+load bookstore.dat
+ls
+bookdel book9
+load bookstore.dat
+y
+top 3
+soldout
+stock book9 42
+chprice book9 999.99
+info book9
+save bookstore.dat
+revenue
+reset
