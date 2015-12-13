@@ -56,7 +56,7 @@ void buf_print(buffer_t* buf) {
     }
 
     if (buf->size % 16 != 0 && buf->size) {
-        unsigned int num_empty_bytes = 16 - (buf->size % 16);
+        size_t num_empty_bytes = 16 - (buf->size % 16);
         for (unsigned int i=0; i<num_empty_bytes; i++) {
             printf("  ");
             if ((i+1) % 16 == num_empty_bytes % 16) {
