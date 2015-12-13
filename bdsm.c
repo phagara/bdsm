@@ -2,6 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include "bookstore.h"
 
 #define MAXCMDLEN 1024
@@ -10,11 +11,15 @@
 bool unsaved_changes = false;
 
 
+bookstore_t* cmd_dispatch(bookstore_t* store, unsigned int argc, char** argv);
+void bookshell(bookstore_t* store);
+
+
 bookstore_t* cmd_dispatch(bookstore_t* store, unsigned int argc, char** argv) {
     if (strcmp(argv[0], "exit") == 0) {
         if (unsaved_changes) {
             printf("You have unsaved changes. Really exit? [yN] ");
-            char choice = getchar();
+            int choice = getchar();
             if (choice != 'y' && choice != 'Y' && choice != EOF)
                 return store;
         }
@@ -48,7 +53,7 @@ bookstore_t* cmd_dispatch(bookstore_t* store, unsigned int argc, char** argv) {
         }
         if (unsaved_changes) {
             printf("You have unsaved changes. Really load a new bookstore? [yN] ");
-            char choice = getchar();
+            int choice = getchar();
             if (choice == EOF) {
                 printf("Bye.\n");
                 bookstore_free(store);
@@ -86,8 +91,8 @@ bookstore_t* cmd_dispatch(bookstore_t* store, unsigned int argc, char** argv) {
         }
         bookstore_add_book(store,
                 book_init(argv[1], argv[2], argv[3],
-                    argv[4], atoi(argv[5]),
-                    atoi(argv[6]), atof(argv[7])));
+                    argv[4], (unsigned int) atoi(argv[5]),
+                    (unsigned int) atoi(argv[6]), atof(argv[7])));
         unsaved_changes = true;
         return store;
     } else if (strcmp(argv[0], "bookdel") == 0) {
@@ -129,7 +134,7 @@ bookstore_t* cmd_dispatch(bookstore_t* store, unsigned int argc, char** argv) {
         }
         book_t* b = book_find(store, argv[1]);
         if (b != NULL) {
-            book_sell(b, atoi(argv[2]));
+            book_sell(b, (unsigned int) atoi(argv[2]));
             unsaved_changes = true;
         } else {
             printf("Cannot find book with ISBN %s!\n", argv[1]);
@@ -142,7 +147,7 @@ bookstore_t* cmd_dispatch(bookstore_t* store, unsigned int argc, char** argv) {
         }
         book_t* b = book_find(store, argv[1]);
         if (b != NULL) {
-            book_stock(b, atoi(argv[2]));
+            book_stock(b, (unsigned int) atoi(argv[2]));
             unsaved_changes = true;
         } else {
             printf("Cannot find book with ISBN %s!\n", argv[1]);
@@ -180,7 +185,7 @@ bookstore_t* cmd_dispatch(bookstore_t* store, unsigned int argc, char** argv) {
             printf("The \"top\" command requires a number as a parameter\n");
             return store;
         }
-        bookstore_get_bestsellers(store, atoi(argv[1]));
+        bookstore_get_bestsellers(store, (unsigned int) atoi(argv[1]));
         return store;
     } else if (strcmp(argv[0], "soldout") == 0) {
         bookstore_get_sold_out(store);
@@ -208,7 +213,7 @@ void bookshell(bookstore_t* store) {
     unsigned int i;
     char* last;
 
-    printf("\nBDSM v1.3.37i shell ready.\n");
+    printf("\nBDSM v1.3.37 shell ready.\n");
     printf("Type \"help\" for instructions.\n");
 
     while (true) {
