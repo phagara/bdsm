@@ -1,5 +1,5 @@
-#ifndef BOOKSTORE_H
-#define BOOKSTORE_H
+#ifndef __BOOKSTORE_H__
+#define __BOOKSTORE_H__
 #include <stdbool.h>
 #include "buffer.h"
 
