@@ -16,9 +16,9 @@ make test
 ```
 
 
-### Windblows
+### Windows
 
-Like I care.
+Try Cygwin or MinGW.
 
 
 ## License
