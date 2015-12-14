@@ -91,10 +91,6 @@ void bookstore_save(const bookstore_t* store, const char* filename) {
 }
 
 bookstore_t* bookstore_load(const char* filename) {
-    if (access(filename, F_OK) == -1) {
-        return NULL;
-    }
-
     FILE* fd = fopen(filename, "rb");
     if (fd == NULL) exit(errno);
 
